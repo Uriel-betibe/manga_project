@@ -13,6 +13,10 @@ Pour la réalisation de mon projet j’ai utilisé :
 
 Le thème : 
 	Le thème de mon site était de créé un page de présentation pour les mangas et les animés, mais dans la mesure du temps il était plus simple de ce focaliser sur une partie et c’était donc les mangas. Un utilisateur peut voir une bibliothèque en ligne de manga ou il peut se renseigner sur ces derniers, les mettre en favoris dans son espace, laissé des commentaires et voir les commentaires des autres utilisateurs sur les mangas. Il a également la possibilité de modifier ses informations personnelles après la création de son profil. 
+	
+penser à importer la BDD (manga_universe.sql)
+
+configurer l'acces à la BDD dans le fichier pagesconstantes/head.php
 
 Les différents niveaux d’administrions : <br>
 Niveau 1 = le créateur qui a tous les droits <br>
