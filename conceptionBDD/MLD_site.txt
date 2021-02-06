@@ -1,0 +1,96 @@
+﻿Utilisateur(id_utilisateur,Nom,Prenom,Pseudo,Date_N,
+	Mail,MDP,Date_inscription,#id_accès)
+
+CREATE TABLE Utilisateur (
+    id_utilisateur INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nom CHAR(30) NOT NULL,
+    prenom CHAR(30) NOT NULL,
+    pseudo CHAR(30) NOT NULL,
+    date_naissance date NOT NULL),
+    mail CHAR(100) NOT NULL,
+    mdp CHAR(50) NOT NULL,
+	id_acces INT NOT NULL,
+	FOREIGN KEY(id_acces) REFERENCES profil_acces(id_acces) )
+    ENGINE = INNODB;
+
+Profil_acces(id_accès,status_adm,ajout_contenu,sup_contenu,sup_commentaire)
+
+CREATE TABLE `profil_acces` (
+ `id_acces` int(11) NOT NULL AUTO_INCREMENT,
+ `status_adm` char(20) DEFAULT NULL,
+ `ajout_contenu` tinyint(1) DEFAULT 0,
+ `sup_contenu` tinyint(1) DEFAULT 0,
+ `sup_commentaire` tinyint(1) DEFAULT 0,
+ PRIMARY KEY (`id_acces`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+commentaires(id_commentaire,remarque,#id_utilisateur,#id_oeuvre)
+
+CREATE TABLE commentaires ( 
+    id_commetaire INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    remarque TEXT NOT NULL,
+    id_utilisateur INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    id_oeuvre INT NOT NULL,
+    FOREIGN KEY(id_oeuvre) REFERENCES oeuvres(id_oeuvre))
+    ENGINE = INNODB;
+    
+notes(id_note,score,#id_utilisateur,#id_oeuvre)
+
+CREATE TABLE notes ( 
+    id_note INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    score TINYINT NOT NULL,
+    id_utilisateur INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    id_oeuvre INT NOT NULL,
+    FOREIGN KEY(id_oeuvre) REFERENCES oeuvres(id_oeuvre))
+    ENGINE = INNODB;
+
+favoris(id_favoris,#id_oeuvre,#id_utilisateur)
+
+CREATE TABLE favoris (
+	id_favoris INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_utilisateur INT UNSIGNED NOT NULL,
+    FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    id_oeuvre INT NOT NULL,
+    FOREIGN KEY(id_oeuvre) REFERENCES oeuvres(id_oeuvre))
+    ENGINE = INNODB;
+
+oeuvres(id_oeuvre,titre,Auteur,Date_ajout,Type)
+
+create TABLE oeuvres (
+    id_oeuvre INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    titre CHAR(150) NOT NULL,
+   	auteur CHAR(150) NOT NULL,
+    date_ajout DATETIME NOT NULL,
+    type_oeuvre CHAR(10) NOT NULL)
+    ENGINE = INNODB;
+
+mangas(id_oeuvre,Date_sortie,Nbr_chapitre,Resumé,couverture)
+
+CREATE TABLE `mangas` (
+ `id_manga` int(11) NOT NULL AUTO_INCREMENT,
+ `date_sortie_m` date NOT NULL,
+ `nbr_chapitre` int(11) NOT NULL DEFAULT 1,
+ `resume_manga` text NOT NULL,
+ `couverture_manga` char(250) DEFAULT NULL,
+ `id_oeuvre` int(11) NOT NULL,
+ PRIMARY KEY (`id_manga`),
+ KEY `id_oeuvre` (`id_oeuvre`),
+ CONSTRAINT `mangas_ibfk_1` FOREIGN KEY (`id_oeuvre`) REFERENCES `oeuvres` (`id_oeuvre`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+Animes(id_oeuvre,Date_sortie,Nbr_saison,Nbr_épisode,Resume,Couverture,Bande_annonce)
+CREATE TABLE `animes` (
+ `id_anime` int(11) NOT NULL AUTO_INCREMENT,
+ `date_sortie_a` date NOT NULL,
+ `nbr_saison` int(11) NOT NULL DEFAULT 1,
+ `nbr_episode` int(11) NOT NULL DEFAULT 1,
+ `resume_anime` text NOT NULL,
+ `couverture_anime` char(250) DEFAULT NULL,
+ `id_oeuvre` int(11) NOT NULL,
+ PRIMARY KEY (`id_anime`),
+ KEY `id_oeuvre` (`id_oeuvre`),
+ CONSTRAINT `animes_ibfk_1` FOREIGN KEY (`id_oeuvre`) REFERENCES `oeuvres` (`id_oeuvre`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8
